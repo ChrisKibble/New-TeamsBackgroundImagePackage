@@ -1,7 +1,9 @@
 # New-TeamsBackgroundImagePackage
 
 # How to Install
-Coming soon...
+```powershell
+Install-Module New-TeamsBackgroundImagePackage -Repository PSGallery
+```
 
 # Purpose
 Creates a new Teams Background image package in MSI and optionally in IntuneWin format. The resulting package(s) can be used with "New Teams" (e.g. "Teams 2.1") released in 2024, and will likely work on later versions as well.
