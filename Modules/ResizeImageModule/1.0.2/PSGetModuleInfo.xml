@@ -1,0 +1,122 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>Microsoft.PowerShell.Commands.PSRepositoryItemInfo</T>
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <S N="Name">ResizeImageModule</S>
+      <S N="Version">1.0.2</S>
+      <S N="Type">Module</S>
+      <S N="Description">PowerShell Module to Resize Image</S>
+      <S N="Author">Ronildo Souza</S>
+      <S N="CompanyName">RonildoSouza</S>
+      <S N="Copyright">(c) 2018 Ronildo Souza. All rights reserved.</S>
+      <DT N="PublishedDate">2018-12-12T02:35:58-05:00</DT>
+      <Nil N="InstalledDate" />
+      <Nil N="UpdatedDate" />
+      <URI N="LicenseUri">https://github.com/RonildoSouza/ResizeImageModulePS/blob/master/LICENSE</URI>
+      <URI N="ProjectUri">https://github.com/RonildoSouza/ResizeImageModulePS</URI>
+      <Nil N="IconUri" />
+      <Obj N="Tags" RefId="1">
+        <TN RefId="1">
+          <T>System.Object[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <S>PSModule</S>
+        </LST>
+      </Obj>
+      <Obj N="Includes" RefId="2">
+        <TN RefId="2">
+          <T>System.Collections.Hashtable</T>
+          <T>System.Object</T>
+        </TN>
+        <DCT>
+          <En>
+            <S N="Key">DscResource</S>
+            <Obj N="Value" RefId="3">
+              <TNRef RefId="1" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Command</S>
+            <Obj N="Value" RefId="4">
+              <TNRef RefId="1" />
+              <LST>
+                <S>Resize-Image</S>
+                <S>Resize-ImagesInFolder</S>
+              </LST>
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Function</S>
+            <Obj N="Value" RefId="5">
+              <TNRef RefId="1" />
+              <LST>
+                <S>Resize-Image</S>
+                <S>Resize-ImagesInFolder</S>
+              </LST>
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Workflow</S>
+            <Ref N="Value" RefId="3" />
+          </En>
+          <En>
+            <S N="Key">RoleCapability</S>
+            <Ref N="Value" RefId="3" />
+          </En>
+          <En>
+            <S N="Key">Cmdlet</S>
+            <Ref N="Value" RefId="3" />
+          </En>
+        </DCT>
+      </Obj>
+      <Nil N="PowerShellGetFormatVersion" />
+      <S N="ReleaseNotes">https://github.com/RonildoSouza/ResizeImageModulePS/blob/master/changelog.md</S>
+      <Obj N="Dependencies" RefId="6">
+        <TNRef RefId="1" />
+        <LST />
+      </Obj>
+      <S N="RepositorySourceLocation">https://www.powershellgallery.com/api/v2</S>
+      <S N="Repository">PSGallery</S>
+      <S N="PackageManagementProvider">NuGet</S>
+      <Obj N="AdditionalMetadata" RefId="7">
+        <TN RefId="3">
+          <T>System.Management.Automation.PSCustomObject</T>
+          <T>System.Object</T>
+        </TN>
+        <MS>
+          <S N="copyright">(c) 2018 Ronildo Souza. All rights reserved.</S>
+          <S N="description">PowerShell Module to Resize Image</S>
+          <S N="requireLicenseAcceptance">False</S>
+          <S N="releaseNotes">https://github.com/RonildoSouza/ResizeImageModulePS/blob/master/changelog.md</S>
+          <S N="isLatestVersion">True</S>
+          <S N="isAbsoluteLatestVersion">True</S>
+          <S N="versionDownloadCount">25701</S>
+          <S N="downloadCount">25947</S>
+          <S N="packageSize">53366</S>
+          <S N="published">12/12/2018 2:35:58 AM -05:00</S>
+          <S N="created">12/12/2018 2:35:58 AM -05:00</S>
+          <S N="lastUpdated">4/22/2024 8:11:58 PM -04:00</S>
+          <S N="tags">PSModule</S>
+          <S N="developmentDependency">False</S>
+          <S N="updated">2024-04-22T20:11:58Z</S>
+          <S N="NormalizedVersion">1.0.2</S>
+          <S N="Authors">Ronildo Souza</S>
+          <S N="IsPrerelease">false</S>
+          <S N="ItemType">Module</S>
+          <S N="FileList">ResizeImageModule.nuspec|changelog.md|LICENSE|PSGetModuleInfo.xml|README.md|ResizeImageModule.psd1|ResizeImageModule.psm1|.git\COMMIT_EDITMSG|.git\config|.git\description|.git\FETCH_HEAD|.git\HEAD|.git\index|.git\ORIG_HEAD|.git\packed-refs|.git\hooks\applypatch-msg.sample|.git\hooks\commit-msg.sample|.git\hooks\fsmonitor-watchman.sample|.git\hooks\post-update.sample|.git\hooks\pre-applypatch.sample|.git\hooks\pre-commit.sample|.git\hooks\pre-push.sample|.git\hooks\pre-rebase.sample|.git\hooks\pre-receive.sample|.git\hooks\prepare-commit-msg.sample|.git\hooks\update.sample|.git\info\exclude|.git\logs\HEAD|.git\objects\01\6fe0309cec150c00890a9bc1b148af31156e3a|.git\objects\02\93ebffd052009db665cbe725da105e19da3970|.git\objects\0f\480bcaca63bda4b446fd25bb3e4275fac04521|.git\objects\13\bf772bcb03449b6018f816bc123cd0717cda95|.git\objects\1c\1bfd7be2bef12ad200dd68de24b0920bda1458|.git\objects\24\42b7762b72bf89db54d2289af0c76158c3ba47|.git\objects\25\abb1655486bf5d79019a7fb3723633388dd95f|.git\objects\39\13aa9cdbe0566e5e47bcc29ebbb10fce9fdbe6|.git\objects\39\3040d6bf2d213fc51786bec1e41aeebae1dcb6|.git\objects\4d\1afbb0d7191cd44d11d471d394a3146bea6c37|.git\objects\52\b4b6c3a67cabcc53e12730a66975537645854d|.git\objects\5e\01d2f55100c1f6c0a28a107e246eb6d5d67fce|.git\objects\6e\307467afece34769093ed795d346a8a5ea2fc0|.git\objects\6f\a8b81230f6e0a6ba02129931781cb5944d757e|.git\objects\76\991d827b2ff6bea8663e2549d71d6d887d7a24|.git\objects\77\d91449e5b863cd48f3f438974537aa97c9074b|.git\objects\7d\d670f41892d3763ceca045904973d60d5ee96b|.git\objects\83\dcb8d64d323af4bfb32dbe21f6b6ed6b965068|.git\objects\8b\87ac301d1718d19907e8315a62c153940efe36|.git\objects\95\fac12d6fd94396a23f2699cda79b33576bc15a|.git\objects\a7\ac7f59a39cc3e4ea50d35fa0950a03b33070e9|.git\objects\ab\90fd1957d2d303f760bddc3c4f9262b06228d8|.git\objects\af\fa2d437b805a9d759c75608ac38e1f523ccd87|.git\objects\b0\af7361db8e05e90dca2b043904750af415598f|.git\objects\bd\bbc87212c789dda27f5cc62fedd94f80f7fc83|.git\objects\c6\ad902fdeb6d324c63b528e4e8f2b51c35e6275|.git\objects\c9\04cfcbb07281053ae6b2f03c63722c25478b42|.git\objects\cf\a55a3d43dc5c7df8897eb0fb0c599e3d973303|.git\objects\d6\a7e6ff7649f4a1373688741c055b90d30b04ef|.git\objects\d7\173fab36f312f1e2c536355eb8dd2e86637c47|.git\objects\e0\c6db365eb74490abd53385ef9b0f42b2b3eb05|.git\objects\f1\1f4af3b2f5627ce129a06d92d96ab9becf5043|.git\objects\f2\b41d33b9e9eecd442b4a78d31d661565a0cb7a|.git\objects\ff\945e1e1536772b29351bea2820fa5405d6252b|.git\refs\heads\master|.git\logs\refs\heads\master|.git\refs\remotes\origin\HEAD|.git\refs\remotes\origin\master|.git\logs\refs\remotes\origin\HEAD|.git\logs\refs\remotes\origin\master</S>
+          <S N="Functions">Resize-Image Resize-ImagesInFolder</S>
+          <S N="GUID">97f51b37-d03a-4997-b6a4-bed1b6fad1ba</S>
+          <S N="CompanyName">By RNS</S>
+        </MS>
+      </Obj>
+      <S N="InstalledLocation">C:\Users\kibblec\New-TeamsBackgroundImagePackage\Modules\ResizeImageModule\1.0.2</S>
+    </MS>
+  </Obj>
+</Objs>

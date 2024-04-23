@@ -1,0 +1,130 @@
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04">
+  <Obj RefId="0">
+    <TN RefId="0">
+      <T>Microsoft.PowerShell.Commands.PSRepositoryItemInfo</T>
+      <T>System.Management.Automation.PSCustomObject</T>
+      <T>System.Object</T>
+    </TN>
+    <MS>
+      <S N="Name">PSMSI</S>
+      <S N="Version">0.0.2</S>
+      <S N="Type">Module</S>
+      <S N="Description">Create MSIs with PowerShell.</S>
+      <S N="Author">Adam Driscoll</S>
+      <S N="CompanyName">adamdriscoll</S>
+      <S N="Copyright">(c) Ironman Software. All rights reserved.</S>
+      <DT N="PublishedDate">2023-10-31T16:17:39-04:00</DT>
+      <Nil N="InstalledDate" />
+      <Nil N="UpdatedDate" />
+      <URI N="LicenseUri">https://www.github.com/ironmansoftware/psmsi/LICENSE</URI>
+      <URI N="ProjectUri">https://www.github.com/ironmansoftware/psmsi</URI>
+      <Nil N="IconUri" />
+      <Obj N="Tags" RefId="1">
+        <TN RefId="1">
+          <T>System.Object[]</T>
+          <T>System.Array</T>
+          <T>System.Object</T>
+        </TN>
+        <LST>
+          <S>MSI</S>
+          <S>installer</S>
+          <S>PSModule</S>
+        </LST>
+      </Obj>
+      <Obj N="Includes" RefId="2">
+        <TN RefId="2">
+          <T>System.Collections.Hashtable</T>
+          <T>System.Object</T>
+        </TN>
+        <DCT>
+          <En>
+            <S N="Key">DscResource</S>
+            <Obj N="Value" RefId="3">
+              <TNRef RefId="1" />
+              <LST />
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Command</S>
+            <Obj N="Value" RefId="4">
+              <TNRef RefId="1" />
+              <LST>
+                <S>New-Installer</S>
+                <S>New-InstallerFile</S>
+                <S>New-InstallerShortcut</S>
+                <S>New-InstallerDirectory</S>
+                <S>New-InstallerUserInterface</S>
+                <S>New-InstallerCustomAction</S>
+              </LST>
+            </Obj>
+          </En>
+          <En>
+            <S N="Key">Function</S>
+            <Ref N="Value" RefId="3" />
+          </En>
+          <En>
+            <S N="Key">Workflow</S>
+            <Ref N="Value" RefId="3" />
+          </En>
+          <En>
+            <S N="Key">RoleCapability</S>
+            <Ref N="Value" RefId="3" />
+          </En>
+          <En>
+            <S N="Key">Cmdlet</S>
+            <Obj N="Value" RefId="5">
+              <TNRef RefId="1" />
+              <LST>
+                <S>New-Installer</S>
+                <S>New-InstallerFile</S>
+                <S>New-InstallerShortcut</S>
+                <S>New-InstallerDirectory</S>
+                <S>New-InstallerUserInterface</S>
+                <S>New-InstallerCustomAction</S>
+              </LST>
+            </Obj>
+          </En>
+        </DCT>
+      </Obj>
+      <Nil N="PowerShellGetFormatVersion" />
+      <Nil N="ReleaseNotes" />
+      <Obj N="Dependencies" RefId="6">
+        <TNRef RefId="1" />
+        <LST />
+      </Obj>
+      <S N="RepositorySourceLocation">https://www.powershellgallery.com/api/v2</S>
+      <S N="Repository">PSGallery</S>
+      <S N="PackageManagementProvider">NuGet</S>
+      <Obj N="AdditionalMetadata" RefId="7">
+        <TN RefId="3">
+          <T>System.Management.Automation.PSCustomObject</T>
+          <T>System.Object</T>
+        </TN>
+        <MS>
+          <S N="copyright">(c) Ironman Software. All rights reserved.</S>
+          <S N="description">Create MSIs with PowerShell.</S>
+          <S N="requireLicenseAcceptance">False</S>
+          <S N="isLatestVersion">True</S>
+          <S N="isAbsoluteLatestVersion">True</S>
+          <S N="versionDownloadCount">1713</S>
+          <S N="downloadCount">2441</S>
+          <S N="packageSize">6737267</S>
+          <S N="published">10/31/2023 4:17:39 PM -04:00</S>
+          <S N="created">10/31/2023 4:17:39 PM -04:00</S>
+          <S N="lastUpdated">4/22/2024 7:46:58 PM -04:00</S>
+          <S N="tags">MSI installer PSModule PSCmdlet_New-Installer PSCommand_New-Installer PSCmdlet_New-InstallerFile PSCommand_New-InstallerFile PSCmdlet_New-InstallerShortcut PSCommand_New-InstallerShortcut PSCmdlet_New-InstallerDirectory PSCommand_New-InstallerDirectory PSCmdlet_New-InstallerUserInterface PSCommand_New-InstallerUserInterface PSCmdlet_New-InstallerCustomAction PSCommand_New-InstallerCustomAction PSIncludes_Cmdlet</S>
+          <S N="developmentDependency">False</S>
+          <S N="updated">2024-04-22T19:46:58Z</S>
+          <S N="NormalizedVersion">0.0.2</S>
+          <S N="Authors">Adam Driscoll</S>
+          <S N="IsPrerelease">false</S>
+          <S N="ItemType">Module</S>
+          <S N="FileList">PSMSI.nuspec|PSMSI.deps.json|Wix\bin\nit.exe|PSMSI.dll|Wix\bin\nit.exe.config|Wix\bin\pyro.exe|PSMSI.pdb|Wix\bin\pyro.exe.config|PSMSI.psd1|Wix\bin\retina.exe|SixLabors.Core.dll|Wix\bin\retina.exe.config|SixLabors.ImageSharp.dll|Wix\bin\shine.exe|System.Buffers.dll|Wix\bin\shine.exe.config|System.Management.Automation.dll|Wix\bin\smoke.exe|System.Memory.dll|Wix\bin\smoke.exe.config|System.Numerics.Vectors.dll|Wix\bin\ThmViewer.exe|System.Runtime.CompilerServices.Unsafe.dll|Wix\bin\torch.exe|Wix\bin\candle.exe|Wix\bin\torch.exe.config|Wix\bin\candle.exe.config|Wix\bin\wconsole.dll|Wix\bin\darice.cub|Wix\bin\winterop.dll|Wix\bin\dark.exe|Wix\bin\wix.dll|Wix\bin\dark.exe.config|Wix\bin\wix.targets|Wix\bin\difxapp_x005F_x64.wixlib|Wix\bin\wix200x.targets|Wix\bin\difxapp_x005F_x86.wixlib|Wix\bin\wix2010.targets|Wix\bin\heat.exe|Wix\bin\WixBalExtension.dll|Wix\bin\heat.exe.config|Wix\bin\WixComPlusExtension.dll|Wix\bin\insignia.exe|Wix\bin\WixCop.exe|Wix\bin\insignia.exe.config|Wix\bin\WixDependencyExtension.dll|Wix\bin\LICENSE.TXT|Wix\bin\WixDifxAppExtension.dll|Wix\bin\light.exe|Wix\bin\WixDirectXExtension.dll|Wix\bin\light.exe.config|Wix\bin\WixFirewallExtension.dll|Wix\bin\lit.exe|Wix\bin\WixGamingExtension.dll|Wix\bin\lit.exe.config|Wix\bin\WixHttpExtension.dll|Wix\bin\lux.exe|Wix\bin\WixIIsExtension.dll|Wix\bin\lux.exe.config|Wix\bin\WixLuxExtension.dll|Wix\bin\lux.targets|Wix\bin\WixMsmqExtension.dll|Wix\bin\LuxTasks.dll|Wix\bin\WixNetFxExtension.dll|Wix\bin\melt.exe|Wix\bin\WixPSExtension.dll|Wix\bin\melt.exe.config|Wix\bin\WixSqlExtension.dll|Wix\bin\mergemod.cub|Wix\bin\WixTagExtension.dll|Wix\bin\mergemod.dll|Wix\bin\WixTasks.dll|Wix\bin\Microsoft.Deployment.Compression.Cab.dll|Wix\bin\WixUIExtension.dll|Wix\bin\Microsoft.Deployment.Compression.dll|Wix\bin\WixUtilExtension.dll|Wix\bin\Microsoft.Deployment.Resources.dll|Wix\bin\WixVSExtension.dll|Wix\bin\Microsoft.Deployment.WindowsInstaller.dll|Wix\bin\WixVSExtension.MSBuild12.dll|Wix\bin\Microsoft.Deployment.WindowsInstaller.Package.dll|Wix\bin\WixVSExtension.MSBuild14.dll|Wix\bin\mspatchc.dll|Wix\bin\x86\burn.exe</S>
+          <S N="GUID">7de0af83-c438-4252-9f5d-b7d4409b152e</S>
+          <S N="CompanyName">Ironman Software</S>
+        </MS>
+      </Obj>
+      <S N="InstalledLocation">C:\Users\kibblec\New-TeamsBackgroundImagePackage\Modules\PSMSI\0.0.2</S>
+    </MS>
+  </Obj>
+</Objs>
