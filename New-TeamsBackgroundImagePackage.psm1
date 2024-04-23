@@ -39,6 +39,9 @@ Function New-TeamsBackgroundImagePackage {
         [String]$ScratchSpace = $env:temp,
 
         [Parameter(Mandatory=$False)]
+        [Switch]$GenerateIntuneWin,
+
+        [Parameter(Mandatory=$False)]
         [Switch]$Recurse,
 
         [Parameter(Mandatory=$False)]
@@ -65,7 +68,7 @@ Function New-TeamsBackgroundImagePackage {
         [Nullable[Guid]]$UpgradeGuid = $null,
 
         [Parameter(Mandatory=$False)]
-        [Switch]$SkipUpgradeGuidWarning,
+        [Switch]$SkipUpgradeGuidWarning,       
 
         [Parameter(Mandatory=$False)]
         [Switch]$NoBanner
@@ -118,10 +121,11 @@ Function New-TeamsBackgroundImagePackage {
         }
 
         # Bring in the directory and add in a number if necessary to make it unique.
-        $OutputFile = Join-Path $OutputFolder -ChildPath "$FileRawName$(If($i -gt 0) { " (Copy $i)" }).msi"
+        $OutputFileMsi = Join-Path $OutputFolder -ChildPath "$FileRawName$(If($i -gt 0) { " (Copy $i)" }).msi"
+        $OutputFileIntune = Join-Path $OutputFolder -ChildPath "$FileRawName$(If($i -gt 0) { " (Copy $i)" }).intunewin"
         $i++
-        Write-Verbose "Setting Output File to $OutputFile (will change if exists) ..."
-    } Until(-Not(Get-ChildItem $OutputFile -ErrorAction SilentlyContinue))
+        Write-Verbose "Setting Output File to $OutputFileMsi (will change if exists) ..."
+    } Until($null -eq (Get-ChildItem $OutputFileMsi -ErrorAction SilentlyContinue) -and ($null -eq (Get-ChildItem $OutputFileIntune -ErrorAction SilentlyContinue)))
 
     $ScratchFolder = Join-Path $ScratchSpace -ChildPath ([Guid]::NewGuid())
     $ScratchImage = Join-Path $ScratchFolder -ChildPath "Images"
@@ -267,22 +271,114 @@ Function New-TeamsBackgroundImagePackage {
     Write-Verbose "Running Garbage Collection"
     [System.GC]::Collect()
 
-    Write-Verbose "Moving MSI from $scratchOutput to $OutputFile"
-    $msi = Get-ChildItem $scratchOutput -Filter "*.msi" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 # Should only be 1; Just being safe.
+    Write-Verbose "Copying MSI from $scratchOutput to $OutputFileMsi"
+    $scratchMsi = Get-ChildItem $scratchOutput -Filter "*.msi" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 # Should only be 1; Just being safe.
 
-    If(-Not($msi)) {
+    If(-Not($scratchMsi)) {
         Write-Warning "Unable to Find MSI to Copy"
+        $OutputFileMsi = $null
     } Else {
         Try {
-            Copy-Item $msi -Destination $OutputFile
+            Copy-Item $scratchMsi -Destination $OutputFileMsi
         } Catch {
-            Write-Warning "Unable to copy MSI to $OutputFile $($_.Exception.Message)"
+            Write-Warning "Unable to copy MSI to $OutputFileMsi $($_.Exception.Message)"
+            $outputFileMsi = $null
         }    
     }
-    
+
+    If($GenerateIntuneWin -and $outputFileMsi) {
+        
+        Write-Verbose "Searching for IntuneWinAppUtil.exe"
+        If(Get-ChildItem $PSScriptRoot\IntuneWinAppUtil.exe) {
+            $IntuneWinAppUtil = Resolve-Path $PSScriptRoot\IntuneWinAppUtil.exe | Select-Object -ExpandProperty Path
+        } Else {
+            $IntuneWinAppUtil = Get-Command IntuneWinAppUtil.exe -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source
+        }
+
+        If(-Not($IntuneWinAppUtil)) {
+            Write-Warning "Could not find IntuneWinAppUtil.exe in $PSScriptRoot or in any path folder. Cannot create IntuneWin file."
+            Write-Warning "Download the tool from: https://github.com/Microsoft/Microsoft-Win32-Content-Prep-Tool"
+        } Else {
+
+            Write-Verbose "Using IntuneWinAppUtil.exe from $IntuneWinAppUtil"
+
+            Write-Verbose "Getting EXE Certificate Details"
+            $certDetails = Get-AuthenticodeSignature -FilePath $IntuneWinAppUtil
+            
+            If($certDetails.Status -ne "Valid") {
+                Write-Warning "The binary $IntuneWinAppUtil has an invalid certificate. Will not use to create IntuneWin file."
+            } ElseIf($certDetails.SignerCertificate.Subject -notlike "CN=Microsoft*") {
+                Write-Warning "The binary $IntuneWinAppUtil is not signed by Microsoft. Will not use to create IntuneWin file."
+            } Else {
+                
+                # Cleanup OutputFolder
+                Get-ChildItem $scratchOutput | Where-Object { $_.Extension -ne '.msi' } | ForEach-Object {
+                    Write-Verbose "Removing $($_.Name) from Scratch Output (not an MSI)"
+                    $_ | Remove-Item
+                }
+
+                Try {
+                    $IntuneArgs = "-c `"$ScratchOutput`" -s `"$($scratchMsi.Name)`" -o `"$ScratchOutput`""
+
+                    Write-Verbose "Executing `"$IntuneWinAppUtil`" $IntuneArgs"
+                    
+                    $pinfo = New-Object System.Diagnostics.ProcessStartInfo
+                    $pinfo.FileName = $IntuneWinAppUtil
+                    $pinfo.RedirectStandardError = $true
+                    $pinfo.RedirectStandardOutput = $true
+                    $pinfo.UseShellExecute = $false
+                    $pinfo.Arguments = $IntuneArgs
+                    
+                    $intuneWinProcess = New-Object System.Diagnostics.Process
+                    $intuneWinProcess.StartInfo = $pinfo
+                    $intuneWinProcess.Start() | Out-Null
+                    $intuneWinProcess.WaitForExit()
+                    $stdout = $intuneWinProcess.StandardOutput.ReadToEnd()
+                    $stderr = $intuneWinProcess.StandardError.ReadToEnd()
+
+                    If($stdOut) { 
+                        $stdOut -split "`r?`n" | Where-Object { $_ -ne "" -and $_ -ne $null } | ForEach-Object {
+                            Write-verbose "[IntuneWinAppUtil] $($_)"
+                        }
+                    }
+                    
+                    If($stdErr) { 
+                        $stdErr -split "`r?`n" | Where-Object { $_ -ne "" -and $_ -ne $null } | ForEach-Object {
+                            Write-Warning "[IntuneWinAppUtil] $($_)"
+                        }
+                    }
+
+                    If($intuneWinProcess.ExitCode -ne 0) {
+                        Throw "IntuneWinAppUtil Error $($intuneWinProcess.ExitCode)"
+                    }
+                } Catch {
+                    Write-Warning "Could not create IntuneWin file. $($_.Exception.Message)"
+                }
+
+                Write-Verbose "Copying IntuneWin from $scratchOutput to $OutputFileIntune"
+                $scratchIntuneWin = Get-ChildItem $scratchOutput -Filter "*.intunewin" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 # Should only be 1; Just being safe.
+            
+                If(-Not($scratchIntuneWin)) {
+                    Write-Warning "Unable to Find IntuneWin to Copy"
+                    $OutputFileIntune = $null
+                } Else {
+                    Try {
+                        Copy-Item $scratchIntuneWin -Destination $OutputFileIntune
+                    } Catch {
+                        Write-Warning "Unable to copy IntuneWin to $OutputFileIntune $($_.Exception.Message)"
+                        $OutputFileIntune = $null
+                    }    
+                }
+            }
+        }
+    }
+
     If(-Not($DontCleanUp)) {Write-Verbose "Removing $ScratchFolder"; Remove-Item $ScratchFolder -Force -Recurse }  
 
-    Return (Get-ChildItem $OutputFile -ErrorAction SilentlyContinue)
+    Return @{
+        MSI = $OutputFileMsi
+        IntuneWin = $OutputFileIntune
+    }
 }
 
 Function Get-InstallerDefaultIcon {
